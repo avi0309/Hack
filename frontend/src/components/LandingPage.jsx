@@ -65,18 +65,23 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="gradient-hero">
-        <div className="container mx-auto px-6 pt-32 pb-16">
-          <div className="text-center max-w-4xl mx-auto">
+      <section className="gradient-hero relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+        <div className="absolute bottom-40 right-10 w-48 h-48 bg-white/5 rounded-full blur-2xl"></div>
+        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-white/8 rounded-full blur-lg"></div>
+        
+        <div className="container mx-auto px-6 pt-40 pb-20">
+          <div className="text-center max-w-4xl mx-auto relative z-10">
             <h1 className="display-hero text-white mb-6 animate-slide-up">
               {heroData.title}
             </h1>
-            <p className="body-large text-white/90 mb-8 animate-slide-up delay-200">
+            <p className="body-large text-white/90 mb-8 animate-slide-up delay-200 max-w-3xl mx-auto">
               {heroData.subtitle}
             </p>
             <Button 
               size="lg"
-              className="btn-primary text-lg px-8 py-4 animate-slide-up delay-400"
+              className="btn-primary text-lg px-8 py-4 animate-slide-up delay-400 shadow-lg hover:shadow-xl"
               onClick={() => handleCtaClick(heroData.ctaLink)}
             >
               {heroData.ctaText}

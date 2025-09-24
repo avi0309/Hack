@@ -153,8 +153,14 @@ const LandingPage = () => {
       </section>
 
       {/* Why This Matters Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
+      <section className="py-20 bg-gradient-to-br from-green-50/50 via-blue-50/30 to-purple-50/20 relative">
+        {/* Background decorative elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+          <div className="absolute top-20 right-20 w-40 h-40 bg-gradient-to-br from-green-200/30 to-blue-200/30 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-20 left-20 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-pink-200/30 rounded-full blur-xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <h2 className="heading-large mb-4">{whyItMatters.title}</h2>
             <p className="body-large text-gray-600 max-w-3xl mx-auto">
@@ -165,7 +171,7 @@ const LandingPage = () => {
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {whyItMatters.stats.map((stat, index) => (
-              <div key={index} className="text-center">
+              <div key={index} className="text-center p-6 bg-white/70 backdrop-blur-sm rounded-2xl shadow-sm hover:shadow-lg transition-all duration-200">
                 <div className="text-5xl font-bold text-brand-primary mb-2">{stat.number}</div>
                 <p className="body-standard text-gray-600">{stat.label}</p>
               </div>
@@ -176,7 +182,7 @@ const LandingPage = () => {
           <div className="max-w-2xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {whyItMatters.benefits.map((benefit, index) => (
-                <div key={index} className="flex items-center space-x-3">
+                <div key={index} className="flex items-center space-x-3 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
                   <CheckCircle className="h-5 w-5 text-brand-primary flex-shrink-0" />
                   <span className="body-standard text-gray-700">{benefit}</span>
                 </div>

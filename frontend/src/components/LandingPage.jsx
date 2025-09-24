@@ -283,16 +283,23 @@ const LandingPage = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="gradient-cta">
-        <div className="container mx-auto px-6 text-center">
-          <div className="max-w-3xl mx-auto">
+      <section className="gradient-cta relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-orange-200/50 to-pink-200/50 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-10 left-10 w-32 h-32 bg-gradient-to-br from-yellow-200/50 to-green-200/50 rounded-full blur-xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur-sm rounded-3xl p-12 shadow-xl">
             <h2 className="heading-large mb-4">{finalCta.title}</h2>
             <p className="body-large text-gray-700 mb-8">
               {finalCta.subtitle}
             </p>
             <Button 
               size="lg"
-              className="btn-primary text-lg px-8 py-4"
+              className="btn-primary text-lg px-8 py-4 shadow-lg hover:shadow-xl"
               onClick={() => handleCtaClick(finalCta.ctaLink)}
             >
               {finalCta.ctaText}

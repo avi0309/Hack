@@ -193,8 +193,14 @@ const LandingPage = () => {
       </section>
 
       {/* How It Works Timeline */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
+      <section className="py-20 bg-gradient-to-br from-white via-gray-50/50 to-blue-50/20 relative">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-1/4 left-10 w-28 h-28 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-1/4 right-10 w-36 h-36 bg-gradient-to-br from-green-200 to-yellow-200 rounded-full blur-2xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <h2 className="heading-large mb-4">{howItWorks.title}</h2>
             <p className="body-large text-gray-600 max-w-2xl mx-auto">
@@ -205,7 +211,7 @@ const LandingPage = () => {
           <div className="max-w-4xl mx-auto">
             <div className="relative">
               {/* Timeline Line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gray-200 hidden md:block"></div>
+              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-brand-primary via-green-400 to-brand-secondary hidden md:block"></div>
               
               {howItWorks.steps.map((step, index) => {
                 const IconComponent = iconMap[step.icon];
@@ -214,22 +220,22 @@ const LandingPage = () => {
                 return (
                   <div key={step.step} className="relative mb-12 last:mb-0">
                     {/* Timeline Dot */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-brand-primary rounded-full flex items-center justify-center z-10 hidden md:flex">
+                    <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center z-10 hidden md:flex shadow-lg">
                       <IconComponent className="h-6 w-6 text-white" />
                     </div>
                     
                     {/* Content */}
                     <div className={`md:w-1/2 ${isEven ? 'md:pr-12' : 'md:ml-auto md:pl-12'}`}>
-                      <Card className="hover-scale">
+                      <Card className="hover-scale shadow-sm hover:shadow-xl transition-all duration-300 bg-white/80 backdrop-blur-sm border-2">
                         <CardContent className="p-6">
                           <div className="flex items-center mb-4 md:hidden">
-                            <div className="w-10 h-10 bg-brand-primary rounded-full flex items-center justify-center mr-4">
+                            <div className="w-10 h-10 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center mr-4">
                               <IconComponent className="h-5 w-5 text-white" />
                             </div>
-                            <Badge variant="secondary">Step {step.step}</Badge>
+                            <Badge variant="secondary" className="bg-brand-primary text-white">Step {step.step}</Badge>
                           </div>
                           <div className="hidden md:block mb-4">
-                            <Badge variant="secondary">Step {step.step}</Badge>
+                            <Badge variant="secondary" className="bg-brand-primary text-white">Step {step.step}</Badge>
                           </div>
                           <h3 className="heading-medium mb-3">{step.title}</h3>
                           <p className="body-standard text-gray-600">{step.description}</p>

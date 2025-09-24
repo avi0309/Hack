@@ -13,7 +13,14 @@ import {
   Play, 
   Award,
   ArrowRight,
-  CheckCircle
+  CheckCircle,
+  Menu,
+  X,
+  ExternalLink,
+  Zap,
+  Target,
+  Users,
+  Clock
 } from 'lucide-react';
 import { 
   heroData, 
@@ -26,6 +33,8 @@ import {
 } from '../data/mockData';
 
 const LandingPage = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
   const iconMap = {
     Heart,
     Flame,
@@ -35,7 +44,11 @@ const LandingPage = () => {
     Trophy,
     BookOpen,
     Play,
-    Award
+    Award,
+    Zap,
+    Target,
+    Users,
+    Clock
   };
 
   const handleCtaClick = (link) => {
@@ -43,85 +56,137 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-primary">
       {/* Navigation Header */}
-      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-brand-primary rounded-lg flex items-center justify-center">
-                <Heart className="h-5 w-5 text-white" />
+      <nav className="nav fixed top-0 w-full z-50">
+        <div className="container">
+          <div className="flex items-center justify-between py-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-brand-primary rounded-xl flex items-center justify-center">
+                <Heart className="h-6 w-6 text-white" />
               </div>
-              <span className="heading-medium text-brand-primary font-semibold">ResQMinds</span>
+              <span className="heading-sm text-primary font-semibold">ResQMinds</span>
             </div>
-            <Button 
-              className="btn-primary"
-              onClick={() => handleCtaClick(heroData.ctaLink)}
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#features" className="text-secondary hover:text-primary transition-colors">Features</a>
+              <a href="#how-it-works" className="text-secondary hover:text-primary transition-colors">How it Works</a>
+              <a href="#team" className="text-secondary hover:text-primary transition-colors">Team</a>
+              <Button 
+                className="btn btn-primary"
+                onClick={() => handleCtaClick(heroData.ctaLink)}
+              >
+                Try Game
+                <ExternalLink className="h-4 w-4" />
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              Try Game
-            </Button>
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
+
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <div className="md:hidden border-t border-light py-4">
+              <div className="flex flex-col gap-4">
+                <a href="#features" className="text-secondary hover:text-primary transition-colors">Features</a>
+                <a href="#how-it-works" className="text-secondary hover:text-primary transition-colors">How it Works</a>
+                <a href="#team" className="text-secondary hover:text-primary transition-colors">Team</a>
+                <Button 
+                  className="btn btn-primary w-full"
+                  onClick={() => handleCtaClick(heroData.ctaLink)}
+                >
+                  Try Game
+                  <ExternalLink className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="gradient-hero relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
-        <div className="absolute bottom-40 right-10 w-48 h-48 bg-white/5 rounded-full blur-2xl"></div>
-        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-white/8 rounded-full blur-lg"></div>
-        
-        <div className="container mx-auto px-6 pt-40 pb-20">
-          <div className="text-center max-w-4xl mx-auto relative z-10">
-            <h1 className="display-hero text-white mb-6 animate-slide-up">
+      <section className="hero relative">
+        <div className="container relative z-10">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="animate-fade-in">
+              <Badge className="mb-6 bg-secondary text-secondary border-medium">
+                🚀 Emergency Training Reimagined
+              </Badge>
+            </div>
+            
+            <h1 className="display-lg text-primary mb-6 animate-slide-up delay-100">
               {heroData.title}
             </h1>
-            <p className="body-large text-white/90 mb-8 animate-slide-up delay-200 max-w-3xl mx-auto">
+            
+            <p className="body-xl text-secondary mb-8 animate-slide-up delay-200 max-w-3xl mx-auto">
               {heroData.subtitle}
             </p>
-            <Button 
-              size="lg"
-              className="btn-primary text-lg px-8 py-4 animate-slide-up delay-400 shadow-lg hover:shadow-xl"
-              onClick={() => handleCtaClick(heroData.ctaLink)}
-            >
-              {heroData.ctaText}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up delay-300">
+              <Button 
+                size="lg"
+                className="btn btn-primary btn-lg"
+                onClick={() => handleCtaClick(heroData.ctaLink)}
+              >
+                {heroData.ctaText}
+                <ArrowRight className="h-5 w-5" />
+              </Button>
+              <Button 
+                size="lg"
+                className="btn btn-secondary btn-lg"
+              >
+                Watch Demo
+                <Play className="h-5 w-5" />
+              </Button>
+            </div>
+
+            {/* Stats Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 animate-slide-up delay-400">
+              {whyItMatters.stats.map((stat, index) => (
+                <div key={index} className="text-center">
+                  <div className="display-md text-brand mb-2">{stat.number}</div>
+                  <p className="body-sm text-secondary">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Features Dashboard Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 relative">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-40">
-          <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-blue-200 to-green-200 rounded-full blur-xl"></div>
-          <div className="absolute top-32 right-20 w-16 h-16 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full blur-lg"></div>
-          <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full blur-xl"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 relative z-10">
+      {/* Features Section */}
+      <section id="features" className="py-24 bg-secondary">
+        <div className="container">
           <div className="text-center mb-16">
-            <h2 className="heading-large mb-4">Training Scenarios & Features</h2>
-            <p className="body-large text-gray-600 max-w-2xl mx-auto">
+            <Badge className="mb-4 bg-tertiary text-secondary border-medium">
+              ⚡ Core Features
+            </Badge>
+            <h2 className="heading-xl mb-4">Training Scenarios & Platform Features</h2>
+            <p className="body-lg text-secondary max-w-2xl mx-auto">
               Practice life-saving skills through interactive scenarios and track your progress with advanced analytics
             </p>
           </div>
 
-          {/* Game Scenarios */}
-          <div className="mb-12">
-            <h3 className="heading-medium mb-8 text-center">Emergency Scenarios</h3>
+          {/* Emergency Scenarios */}
+          <div className="mb-16">
+            <h3 className="heading-lg mb-8 text-center">Emergency Scenarios</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {gameScenarios.map((scenario) => {
                 const IconComponent = iconMap[scenario.icon];
                 return (
-                  <Card key={scenario.id} className={`${scenario.color} hover-lift cursor-pointer transition-all duration-200 border-2 shadow-sm hover:shadow-lg backdrop-blur-sm`}>
+                  <Card key={scenario.id} className="card hover-lift cursor-pointer group">
                     <CardContent className="p-6">
-                      <div className={`w-12 h-12 rounded-lg bg-white shadow-sm flex items-center justify-center mb-4`}>
-                        <IconComponent className={`h-6 w-6 ${scenario.iconColor}`} />
+                      <div className="w-12 h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-4 group-hover:bg-brand-primary/20 transition-colors">
+                        <IconComponent className="h-6 w-6 text-brand-primary" />
                       </div>
-                      <h4 className="heading-medium mb-2 text-gray-900">{scenario.title}</h4>
-                      <p className="body-small text-gray-600">{scenario.description}</p>
+                      <h4 className="heading-sm mb-2">{scenario.title}</h4>
+                      <p className="body-sm text-secondary">{scenario.description}</p>
                     </CardContent>
                   </Card>
                 );
@@ -131,18 +196,18 @@ const LandingPage = () => {
 
           {/* Platform Features */}
           <div>
-            <h3 className="heading-medium mb-8 text-center">Platform Features</h3>
+            <h3 className="heading-lg mb-8 text-center">Platform Features</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {platformFeatures.map((feature) => {
                 const IconComponent = iconMap[feature.icon];
                 return (
-                  <Card key={feature.id} className={`${feature.color} hover-lift cursor-pointer transition-all duration-200 border-2 shadow-sm hover:shadow-lg backdrop-blur-sm`}>
+                  <Card key={feature.id} className="card hover-lift cursor-pointer group">
                     <CardContent className="p-6">
-                      <div className={`w-12 h-12 rounded-lg bg-white shadow-sm flex items-center justify-center mb-4`}>
-                        <IconComponent className={`h-6 w-6 ${feature.iconColor}`} />
+                      <div className="w-12 h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-4 group-hover:bg-brand-primary/20 transition-colors">
+                        <IconComponent className="h-6 w-6 text-brand-primary" />
                       </div>
-                      <h4 className="heading-medium mb-2 text-gray-900">{feature.title}</h4>
-                      <p className="body-small text-gray-600">{feature.description}</p>
+                      <h4 className="heading-sm mb-2">{feature.title}</h4>
+                      <p className="body-sm text-secondary">{feature.description}</p>
                     </CardContent>
                   </Card>
                 );
@@ -152,96 +217,66 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Why This Matters Section */}
-      <section className="py-20 bg-gradient-to-br from-green-50/50 via-blue-50/30 to-purple-50/20 relative">
-        {/* Background decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
-          <div className="absolute top-20 right-20 w-40 h-40 bg-gradient-to-br from-green-200/30 to-blue-200/30 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-20 left-20 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-pink-200/30 rounded-full blur-xl"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 relative z-10">
+      {/* Why It Matters Section */}
+      <section className="py-24 bg-primary">
+        <div className="container">
           <div className="text-center mb-16">
-            <h2 className="heading-large mb-4">{whyItMatters.title}</h2>
-            <p className="body-large text-gray-600 max-w-3xl mx-auto">
+            <Badge className="mb-4 bg-secondary text-secondary border-medium">
+              📊 Impact
+            </Badge>
+            <h2 className="heading-xl mb-4">{whyItMatters.title}</h2>
+            <p className="body-lg text-secondary max-w-3xl mx-auto">
               {whyItMatters.subtitle}
             </p>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {whyItMatters.stats.map((stat, index) => (
-              <div key={index} className="text-center p-6 bg-white/70 backdrop-blur-sm rounded-2xl shadow-sm hover:shadow-lg transition-all duration-200">
-                <div className="text-5xl font-bold text-brand-primary mb-2">{stat.number}</div>
-                <p className="body-standard text-gray-600">{stat.label}</p>
+          {/* Benefits Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+            {whyItMatters.benefits.map((benefit, index) => (
+              <div key={index} className="flex items-center gap-3 p-4 card-minimal">
+                <CheckCircle className="h-5 w-5 text-brand-primary flex-shrink-0" />
+                <span className="body-md text-primary">{benefit}</span>
               </div>
             ))}
-          </div>
-
-          {/* Benefits */}
-          <div className="max-w-2xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {whyItMatters.benefits.map((benefit, index) => (
-                <div key={index} className="flex items-center space-x-3 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
-                  <CheckCircle className="h-5 w-5 text-brand-primary flex-shrink-0" />
-                  <span className="body-standard text-gray-700">{benefit}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works Timeline */}
-      <section className="py-20 bg-gradient-to-br from-white via-gray-50/50 to-blue-50/20 relative">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-1/4 left-10 w-28 h-28 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-1/4 right-10 w-36 h-36 bg-gradient-to-br from-green-200 to-yellow-200 rounded-full blur-2xl"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 relative z-10">
+      {/* How It Works Section */}
+      <section id="how-it-works" className="py-24 bg-secondary">
+        <div className="container">
           <div className="text-center mb-16">
-            <h2 className="heading-large mb-4">{howItWorks.title}</h2>
-            <p className="body-large text-gray-600 max-w-2xl mx-auto">
+            <Badge className="mb-4 bg-tertiary text-secondary border-medium">
+              🔄 Process
+            </Badge>
+            <h2 className="heading-xl mb-4">{howItWorks.title}</h2>
+            <p className="body-lg text-secondary max-w-2xl mx-auto">
               {howItWorks.subtitle}
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-brand-primary via-green-400 to-brand-secondary hidden md:block"></div>
-              
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {howItWorks.steps.map((step, index) => {
                 const IconComponent = iconMap[step.icon];
-                const isEven = index % 2 === 0;
                 
                 return (
-                  <div key={step.step} className="relative mb-12 last:mb-0">
-                    {/* Timeline Dot */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center z-10 hidden md:flex shadow-lg">
-                      <IconComponent className="h-6 w-6 text-white" />
+                  <div key={step.step} className="text-center">
+                    <div className="relative mb-6">
+                      <div className="w-16 h-16 bg-brand-primary rounded-2xl flex items-center justify-center mx-auto shadow-lg">
+                        <IconComponent className="h-8 w-8 text-white" />
+                      </div>
+                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-brand-accent rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                        {step.step}
+                      </div>
                     </div>
                     
-                    {/* Content */}
-                    <div className={`md:w-1/2 ${isEven ? 'md:pr-12' : 'md:ml-auto md:pl-12'}`}>
-                      <Card className="hover-scale shadow-sm hover:shadow-xl transition-all duration-300 bg-white/80 backdrop-blur-sm border-2">
-                        <CardContent className="p-6">
-                          <div className="flex items-center mb-4 md:hidden">
-                            <div className="w-10 h-10 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center mr-4">
-                              <IconComponent className="h-5 w-5 text-white" />
-                            </div>
-                            <Badge variant="secondary" className="bg-brand-primary text-white">Step {step.step}</Badge>
-                          </div>
-                          <div className="hidden md:block mb-4">
-                            <Badge variant="secondary" className="bg-brand-primary text-white">Step {step.step}</Badge>
-                          </div>
-                          <h3 className="heading-medium mb-3">{step.title}</h3>
-                          <p className="body-standard text-gray-600">{step.description}</p>
-                        </CardContent>
-                      </Card>
-                    </div>
+                    <Card className="card hover-scale">
+                      <CardContent className="p-6">
+                        <h3 className="heading-sm mb-3">{step.title}</h3>
+                        <p className="body-sm text-secondary">{step.description}</p>
+                      </CardContent>
+                    </Card>
                   </div>
                 );
               })}
@@ -251,17 +286,14 @@ const LandingPage = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-gradient-to-br from-purple-50/30 via-pink-50/20 to-blue-50/30 relative">
-        {/* Background decorative elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-10 left-1/4 w-32 h-32 bg-gradient-to-br from-purple-200/40 to-pink-200/40 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-10 right-1/4 w-40 h-40 bg-gradient-to-br from-blue-200/40 to-green-200/40 rounded-full blur-2xl"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 relative z-10">
+      <section id="team" className="py-24 bg-primary">
+        <div className="container">
           <div className="text-center mb-16">
-            <h2 className="heading-large mb-4">Meet Our Team</h2>
-            <p className="body-large text-gray-600">
+            <Badge className="mb-4 bg-secondary text-secondary border-medium">
+              👥 Team
+            </Badge>
+            <h2 className="heading-xl mb-4">Meet Our Team</h2>
+            <p className="body-lg text-secondary">
               Passionate developers and researchers dedicated to making emergency training accessible for everyone
             </p>
           </div>
@@ -270,12 +302,12 @@ const LandingPage = () => {
             {teamMembers.map((member, index) => (
               <div key={index} className="text-center group">
                 <div className="relative mb-4">
-                  <div className="w-20 h-20 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center mx-auto shadow-lg group-hover:shadow-xl transition-all duration-200 group-hover:scale-105">
+                  <div className="w-20 h-20 bg-gradient-to-br from-brand-primary to-brand-accent rounded-2xl flex items-center justify-center mx-auto shadow-lg group-hover:shadow-xl transition-all duration-200 group-hover:scale-105">
                     <span className="text-2xl font-semibold text-white">{member.avatar}</span>
                   </div>
-                  <div className="absolute -inset-2 bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10"></div>
                 </div>
-                <h4 className="heading-medium">{member.name}</h4>
+                <h4 className="heading-sm mb-1">{member.name}</h4>
+                <p className="body-sm text-secondary">{member.role}</p>
               </div>
             ))}
           </div>
@@ -283,46 +315,64 @@ const LandingPage = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="gradient-cta relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-orange-200/50 to-pink-200/50 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-10 left-10 w-32 h-32 bg-gradient-to-br from-yellow-200/50 to-green-200/50 rounded-full blur-xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-3xl"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur-sm rounded-3xl p-12 shadow-xl">
-            <h2 className="heading-large mb-4">{finalCta.title}</h2>
-            <p className="body-large text-gray-700 mb-8">
-              {finalCta.subtitle}
-            </p>
-            <Button 
-              size="lg"
-              className="btn-primary text-lg px-8 py-4 shadow-lg hover:shadow-xl"
-              onClick={() => handleCtaClick(finalCta.ctaLink)}
-            >
-              {finalCta.ctaText}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+      <section className="py-24 bg-secondary">
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center">
+            <Card className="card p-12 shadow-xl">
+              <CardContent className="p-0">
+                <Badge className="mb-6 bg-tertiary text-secondary border-medium">
+                  🎯 Get Started
+                </Badge>
+                <h2 className="heading-xl mb-4">{finalCta.title}</h2>
+                <p className="body-lg text-secondary mb-8">
+                  {finalCta.subtitle}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button 
+                    size="lg"
+                    className="btn btn-primary btn-lg"
+                    onClick={() => handleCtaClick(finalCta.ctaLink)}
+                  >
+                    {finalCta.ctaText}
+                    <ArrowRight className="h-5 w-5" />
+                  </Button>
+                  <Button 
+                    size="lg"
+                    className="btn btn-secondary btn-lg"
+                  >
+                    Learn More
+                    <BookOpen className="h-5 w-5" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-center mb-8">
-            <div className="w-8 h-8 bg-brand-primary rounded-lg flex items-center justify-center mr-3">
-              <Heart className="h-5 w-5 text-white" />
+      <footer className="bg-primary border-t border-light py-12">
+        <div className="container">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-brand-primary rounded-lg flex items-center justify-center">
+                <Heart className="h-5 w-5 text-white" />
+              </div>
+              <span className="heading-sm text-brand-primary font-semibold">ResQMinds</span>
             </div>
-            <span className="heading-medium text-brand-primary font-semibold">ResQMinds</span>
+            
+            <div className="flex items-center gap-8">
+              <a href="#features" className="text-secondary hover:text-primary transition-colors">Features</a>
+              <a href="#how-it-works" className="text-secondary hover:text-primary transition-colors">How it Works</a>
+              <a href="#team" className="text-secondary hover:text-primary transition-colors">Team</a>
+            </div>
           </div>
-          <div className="text-center">
-            <p className="body-standard text-gray-400 mb-4">
+          
+          <div className="border-t border-light mt-8 pt-8 text-center">
+            <p className="body-sm text-secondary mb-2">
               Empowering communities with life-saving skills through gamified learning
             </p>
-            <p className="body-small text-gray-500">
+            <p className="body-xs text-muted">
               © 2024 ResQMinds. Built for Health Hackathon. All rights reserved.
             </p>
           </div>

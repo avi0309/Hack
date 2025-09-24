@@ -251,8 +251,14 @@ const LandingPage = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
+      <section className="py-20 bg-gradient-to-br from-purple-50/30 via-pink-50/20 to-blue-50/30 relative">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-10 left-1/4 w-32 h-32 bg-gradient-to-br from-purple-200/40 to-pink-200/40 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-10 right-1/4 w-40 h-40 bg-gradient-to-br from-blue-200/40 to-green-200/40 rounded-full blur-2xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <h2 className="heading-large mb-4">Meet Our Team</h2>
             <p className="body-large text-gray-600">
@@ -262,12 +268,14 @@ const LandingPage = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto">
             {teamMembers.map((member, index) => (
-              <div key={index} className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-semibold text-white">{member.avatar}</span>
+              <div key={index} className="text-center group">
+                <div className="relative mb-4">
+                  <div className="w-20 h-20 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center mx-auto shadow-lg group-hover:shadow-xl transition-all duration-200 group-hover:scale-105">
+                    <span className="text-2xl font-semibold text-white">{member.avatar}</span>
+                  </div>
+                  <div className="absolute -inset-2 bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10"></div>
                 </div>
-                <h4 className="heading-medium mb-1">{member.name}</h4>
-                <p className="body-small text-gray-600">{member.role}</p>
+                <h4 className="heading-medium">{member.name}</h4>
               </div>
             ))}
           </div>

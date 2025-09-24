@@ -92,8 +92,15 @@ const LandingPage = () => {
       </section>
 
       {/* Features Dashboard Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
+      <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 relative">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-blue-200 to-green-200 rounded-full blur-xl"></div>
+          <div className="absolute top-32 right-20 w-16 h-16 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full blur-lg"></div>
+          <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full blur-xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <h2 className="heading-large mb-4">Training Scenarios & Features</h2>
             <p className="body-large text-gray-600 max-w-2xl mx-auto">
@@ -108,7 +115,7 @@ const LandingPage = () => {
               {gameScenarios.map((scenario) => {
                 const IconComponent = iconMap[scenario.icon];
                 return (
-                  <Card key={scenario.id} className={`${scenario.color} hover-lift cursor-pointer transition-all duration-200`}>
+                  <Card key={scenario.id} className={`${scenario.color} hover-lift cursor-pointer transition-all duration-200 border-2 shadow-sm hover:shadow-lg backdrop-blur-sm`}>
                     <CardContent className="p-6">
                       <div className={`w-12 h-12 rounded-lg bg-white shadow-sm flex items-center justify-center mb-4`}>
                         <IconComponent className={`h-6 w-6 ${scenario.iconColor}`} />
@@ -129,7 +136,7 @@ const LandingPage = () => {
               {platformFeatures.map((feature) => {
                 const IconComponent = iconMap[feature.icon];
                 return (
-                  <Card key={feature.id} className={`${feature.color} hover-lift cursor-pointer transition-all duration-200`}>
+                  <Card key={feature.id} className={`${feature.color} hover-lift cursor-pointer transition-all duration-200 border-2 shadow-sm hover:shadow-lg backdrop-blur-sm`}>
                     <CardContent className="p-6">
                       <div className={`w-12 h-12 rounded-lg bg-white shadow-sm flex items-center justify-center mb-4`}>
                         <IconComponent className={`h-6 w-6 ${feature.iconColor}`} />
